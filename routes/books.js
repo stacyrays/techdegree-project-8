@@ -34,7 +34,7 @@ router.post(
     let book;
     try {
       book = await Book.create(req.body);
-      res.redirect("/books/" + book.id);
+      res.redirect("/books");
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         // checking the error
@@ -86,7 +86,7 @@ router.post(
       book = await Book.findByPk(req.params.id);
       if (book) {
         await book.update(req.body);
-        res.redirect("/books");
+        res.redirect("/books/" + book.id);
       } else {
         res.sendStatus(404);
       }
