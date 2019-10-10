@@ -77,13 +77,13 @@ router.get(
   })
 );
 
-/* Update a book. */
+/* Update a book.*/
 router.post(
   "/:id",
   asyncHandler(async (req, res) => {
     let book;
     try {
-      book = await Book.findByPk(req.params.id);
+      article = await Book.findByPk(req.params.id);
       if (book) {
         await book.update(req.body);
         res.redirect("/books/" + book.id);
@@ -97,7 +97,7 @@ router.post(
         res.render("/books", {
           book,
           errors: error.errors,
-          title: "Edit book"
+          title: "Edit Books"
         });
       } else {
         throw error;
