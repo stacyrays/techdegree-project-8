@@ -33,7 +33,7 @@ router.get(
 
 /* Create a new book form. */
 router.get("/new", (req, res) => {
-  res.render("books/new", { book: {}, title: "New book" });
+  res.render("books/new-book", { book: {}, title: "New book" });
 });
 
 /* POST create book. */
@@ -79,7 +79,7 @@ router.get(
   asyncHandler(async (req, res) => {
     const book = await Book.findByPk(req.params.id);
     if (book) {
-      res.render("books/edit", { book, title: book.title });
+      res.render("books/update-book", { book, title: book.title });
     } else {
       res.sendStatus(404);
     }
