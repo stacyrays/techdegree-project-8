@@ -1,0 +1,14 @@
+div
+  label(for="title") Title:
+  input(type="text", name="title" value=book.title)
+div
+  label(for="author") Author:
+  input(type="text", name="author" value=book.author)
+div
+  label(for="body") Genre:
+  textarea(name="body")= book.genre
+input(type="submit")
+br
+a(href="../") &larr; Back 
+| | 
+a(href="/books/" + book.id + "/delete") Delete book
