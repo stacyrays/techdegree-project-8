@@ -22,6 +22,15 @@ router.get(
   })
 );
 
+/* GET books listing. */
+router.get(
+  "/books",
+  asyncHandler(async (req, res) => {
+    const books = await Book.findAll({ order: [["createdAt", "DESC"]] });
+    res.render("books/index", { books, title: "Books" });
+  })
+);
+
 /* Create a new book form. */
 router.get("/new", (req, res) => {
   res.render("books/new", { book: {}, title: "New book" });
@@ -29,17 +38,17 @@ router.get("/new", (req, res) => {
 
 /* POST create book. */
 router.post(
-  "/",
+  "/new",
   asyncHandler(async (req, res) => {
     let book;
     try {
       book = await Book.create(req.body);
-      res.redirect("/books");
+      res.redirect("/");
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         // checking the error
         book = await Book.build(req.body);
-        res.render("books/new", {
+        res.render("/", {
           book,
           errors: error.errors,
           title: "New book"
