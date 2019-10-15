@@ -16,20 +16,48 @@ function asyncHandler(cb) {
 /* GET books listing. */
 router.get(
   "/",
-  asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["createdAt", "DESC"]] });
-    res.render("books/index", { books, title: "Sequelize-It!" });
+  asyncHandler(async (req, res, next) => {
+    const books = await Book.findAll({ order: [["year", "ASC"]] });
+    if (books) {
+      res.render("books/index", { books, title: "Books" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      //res.sendStatus(404);
+    }
   })
 );
 
 /* GET books listing. */
 router.get(
   "/books",
+  asyncHandler(async (req, res, next) => {
+    const books = await Book.findAll({ order: [["year", "ASC"]] });
+    if (books) {
+      res.render("books/index", { books, title: "Books" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      //res.sendStatus(404);
+    }
+  })
+);
+
+/* GET books listing.
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const books = await Book.findAll({ order: [["year", "ASC"]] });
+    res.render("books/index", { books, title: "Books" });
+  })
+); */
+
+/* GET books listing.
+router.get(
+  "/books",
   asyncHandler(async (req, res) => {
     const books = await Book.findAll({ order: [["createdAt", "DESC"]] });
     res.render("books/index", { books, title: "Books" });
   })
-);
+);*/
 
 /* Create a new book form. */
 router.get("/new", (req, res) => {
@@ -81,7 +109,8 @@ router.get(
     if (book) {
       res.render("books/update-book", { book, title: book.title });
     } else {
-      res.sendStatus(404);
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      //res.sendStatus(404);
     }
   })
 );
@@ -97,7 +126,8 @@ router.post(
         await book.update(req.body);
         res.redirect("/");
       } else {
-        res.sendStatus(404);
+        res.render("page-not-found", { book: {}, title: "Page Not Found" });
+        //res.sendStatus(404);
       }
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
@@ -123,7 +153,8 @@ router.get(
     if (book) {
       res.render("books/delete", { book, title: "Delete book" });
     } else {
-      res.sendStatus(404);
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      //res.sendStatus(404);
     }
   })
 );
@@ -137,7 +168,8 @@ router.post(
       await book.destroy();
       res.redirect("/books");
     } else {
-      res.sendStatus(404);
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      //res.sendStatus(404);
     }
   })
 );
