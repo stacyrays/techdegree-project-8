@@ -41,6 +41,24 @@ router.get(
   })
 );
 
+/* SEARCH table wtih search terms. */
+router.get(
+  "/search",
+  asyncHandler(async (req, res, next) => {
+    let search;
+    search = req.params;
+    const books = await Book.findAll({
+      where: { [Op.iLike]: [{ title: `${search}` }] },
+      order: [["id", "ASC"]]
+    });
+    if (book) {
+      res.render("/search", { book, title: "Search Results" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+    }
+  })
+);
+
 /* GET books listing.
 router.get(
   "/",
