@@ -19,7 +19,7 @@ function asyncHandler(cb) {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const books = await Book.findAll({ order: [["year", "ASC"]] });
+    const books = await Book.findAll({ limit: 10, order: [["year", "ASC"]] });
     if (books) {
       res.render("books/index", { books, title: "Books" });
     } else {
