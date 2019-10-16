@@ -27,7 +27,7 @@ input[type="submit"] {
 
 form a.button,
 input[type="submit"] {
-  margin-left: 140px;
+  margin-left: 130px;
   transition: 0.4s;
 }
 
@@ -91,7 +91,6 @@ input {
 }
 
 input[type="text"] {
-  margin-left: 7px;
   width: 300px;
 }
 

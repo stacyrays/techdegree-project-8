@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Book = require("../models").Book;
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb) {
@@ -44,8 +46,8 @@ router.get(
 router.post(
   "/search",
   asyncHandler(async (req, res, next) => {
-    let search = req.params;
-    //let search = "Emma";
+    let search = req.body.search;
+    //search = "Emma";
     const books = await Book.findAll({
       where: {
         title: `${search}`
