@@ -50,7 +50,28 @@ router.post(
     //search = "Emma";
     const books = await Book.findAll({
       where: {
-        title: `${search}`
+        [Op.or]: [
+          {
+            title: {
+              [Op.startsWith]: `${search}`
+            }
+          },
+          {
+            author: {
+              [Op.startsWith]: `${search}`
+            }
+          },
+          {
+            genre: {
+              [Op.startsWith]: `${search}`
+            }
+          },
+          {
+            year: {
+              [Op.startsWith]: `${search}`
+            }
+          }
+        ]
       }
     });
     if (books) {
@@ -60,6 +81,25 @@ router.post(
     }
   })
 );
+
+/*//SEARCH for Books byt title
+router.post(
+  "/search",
+  asyncHandler(async (req, res, next) => {
+    let search = req.body.search;
+    //search = "Emma";
+    const books = await Book.findAll({
+      where: {
+        title: `${search}`,
+      }
+    });
+    if (books) {
+      res.render("books/search", { books, title: "Search Results" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+    }
+  })
+);*/
 
 /* Create a new book form. */
 router.get("/new", (req, res) => {
