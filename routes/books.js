@@ -53,22 +53,22 @@ router.post(
         [Op.or]: [
           {
             title: {
-              [Op.startsWith]: `${search}`
+              [Op.substring]: `${search}`
             }
           },
           {
             author: {
-              [Op.startsWith]: `${search}`
+              [Op.substring]: `${search}`
             }
           },
           {
             genre: {
-              [Op.startsWith]: `${search}`
+              [Op.substring]: `${search}`
             }
           },
           {
             year: {
-              [Op.startsWith]: `${search}`
+              [Op.substring]: `${search}`
             }
           }
         ]
