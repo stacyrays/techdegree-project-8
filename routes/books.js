@@ -36,46 +36,28 @@ router.get(
       res.render("books/index", { books, title: "Books" });
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
-      //res.sendStatus(404);
     }
   })
 );
 
-/* SEARCH table wtih search terms. */
-router.get(
+//SEARCH for Books (work in progress)
+router.post(
   "/search",
   asyncHandler(async (req, res, next) => {
-    let search;
-    search = req.params;
+    let search = req.params;
+    //let search = "Emma";
     const books = await Book.findAll({
-      where: { [Op.iLike]: [{ title: `${search}` }] },
-      order: [["id", "ASC"]]
+      where: {
+        title: `${search}`
+      }
     });
-    if (book) {
-      res.render("/search", { book, title: "Search Results" });
+    if (books) {
+      res.render("books/search", { books, title: "Search Results" });
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
     }
   })
 );
-
-/* GET books listing.
-router.get(
-  "/",
-  asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["year", "ASC"]] });
-    res.render("books/index", { books, title: "Books" });
-  })
-); */
-
-/* GET books listing.
-router.get(
-  "/books",
-  asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["createdAt", "DESC"]] });
-    res.render("books/index", { books, title: "Books" });
-  })
-);*/
 
 /* Create a new book form. */
 router.get("/new", (req, res) => {
@@ -106,19 +88,6 @@ router.post(
   })
 );
 
-/* Edit book form. 
-router.get(
-  "/:id/edit",
-  asyncHandler(async (req, res) => {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      res.render("books/edit", { book, title: "Edit book" });
-    } else {
-      res.sendStatus(404);
-    }
-  })
-);*/
-
 /* GET individual book. */
 router.get(
   "/:id",
@@ -133,7 +102,7 @@ router.get(
   })
 );
 
-/* Update an book. */
+/* Update a book. */
 router.post(
   "/:id",
   asyncHandler(async (req, res) => {
