@@ -19,7 +19,11 @@ function asyncHandler(cb) {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const books = await Book.findAll({ limit: 10, order: [["year", "ASC"]] });
+    const books = await Book.findAll({
+      order: [["year", "ASC"]],
+      limit: 5,
+      offset: 0
+    });
     if (books) {
       res.render("books/index", { books, title: "Books" });
     } else {
@@ -33,7 +37,11 @@ router.get(
 router.get(
   "/books",
   asyncHandler(async (req, res, next) => {
-    const books = await Book.findAll({ limit: 10, order: [["year", "ASC"]] });
+    const books = await Book.findAll({
+      order: [["year", "ASC"]],
+      limit: 5,
+      offset: 0
+    });
     if (books) {
       res.render("books/index", { books, title: "Books" });
     } else {
@@ -49,7 +57,6 @@ router.post(
     let search = req.body.search;
     //search = "Emma";
     const books = await Book.findAll({
-      limit: 10,
       where: {
         [Op.or]: [
           {
@@ -73,7 +80,9 @@ router.post(
             }
           }
         ]
-      }
+      },
+      limit: 5,
+      offset: 0
     });
     if (books) {
       res.render("books/index", { books, title: "Search Results" });
