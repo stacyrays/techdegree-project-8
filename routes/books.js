@@ -19,10 +19,12 @@ function asyncHandler(cb) {
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
+    const limit = 5;
+    const offset = 0;
     const books = await Book.findAll({
       order: [["year", "ASC"]],
-      limit: 5,
-      offset: 0
+      limit: limit,
+      offset: offset
     });
     if (books) {
       res.render("books/index", { books, title: "Books" });
@@ -36,6 +38,43 @@ router.get(
 /* GET books listing. */
 router.get(
   "/books",
+  asyncHandler(async (req, res, next) => {
+    const books = await Book.findAll({
+      order: [["year", "ASC"]],
+      limit: 5,
+      offset: 0
+    });
+    if (books) {
+      res.render("books/index", { books, title: "Books" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+    }
+  })
+);
+
+//Next button clicked
+router.get(
+  "/next",
+  asyncHandler(async (req, res, next) => {
+    let pageNumber = 1; /*I have this hard coded for now but how do i keep track of the page I'm currently on to make this work for multiple Next button clicks?*/
+    const limit = 5;
+    const offset = pageNumber * limit;
+    const books = await Book.findAll({
+      order: [["year", "ASC"]],
+      limit: limit,
+      offset: offset
+    });
+    if (books) {
+      res.render("books/index", { books, title: "Books" });
+    } else {
+      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+    }
+  })
+);
+
+//Prev button clicked
+router.get(
+  "/prev",
   asyncHandler(async (req, res, next) => {
     const books = await Book.findAll({
       order: [["year", "ASC"]],
