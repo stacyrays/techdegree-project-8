@@ -179,7 +179,7 @@ router.post(
   })
 );
 
-/* GET individual book. */
+/* GET individual book. 
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
@@ -187,8 +187,23 @@ router.get(
     if (book) {
       res.render("books/update-book", { book, title: book.title });
     } else {
-      res.render("page-not-found", { book: {}, title: "Page Not Found" });
+      res.render("error", { book: {}, title: "Error" });
       //res.sendStatus(404);
+    }
+  })
+);*/
+
+/* GET individual book */
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    let book;
+    try {
+      book = await Book.findByPk(req.params.id);
+      res.render("books/update-book", { book, title: book.title });
+    } catch (error) {
+      //throw "there's been a mistake";
+      throw res.render("error", { book: {}, title: "Book not found" });
     }
   })
 );
