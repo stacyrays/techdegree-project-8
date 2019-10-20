@@ -22,16 +22,11 @@ block content
             td=book.genre
             td=book.year
     p
-    
-      - var page = 0;
-
-      mixin link(href, name)
-        //- attributes == {class: "btn"}
-        a(class!=attributes.class href=(href))= name
-
-      +link("/books/" + `${ page + 1}`, 'Next')(class="button")
-
+      script
+        include script.js
       
-      //a(onclick='increment('+ page +')', href="/books/" + page class="button" id="btnPrev" ) Previous  
+      - var number = 0;
 
-      //a(onclick='increment('+ page +')', href="/books/" + page, class="button" id="btnNext" style="margin-left: 10px") Next
+      a(onclick='getQueryVariable('+ number +')', href="/books/?page=" + number class="button" id="btnPrev" ) Previous  
+
+      a(onclick='getQueryVariable('+ number +')', href="/books/?page=" + number, class="button" id="btnNext" style="margin-left: 10px") Next

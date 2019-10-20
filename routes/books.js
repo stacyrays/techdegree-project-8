@@ -3,6 +3,7 @@ const router = express.Router();
 const Book = require("../models").Book;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+//const getQueryVariable = require("../views/books/getQueryVariable");
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb) {
@@ -54,11 +55,11 @@ router.get(
 
 //Next button clicked
 router.get(
-  "/:page",
+  "/?page=:number",
   asyncHandler(async (req, res, next) => {
-    page = req.params.page;
+    number = req.params.number;
     const limit = 5;
-    const offset = page * limit;
+    const offset = number * limit;
     const books = await Book.findAll({
       order: [["year", "ASC"]],
       limit: limit,

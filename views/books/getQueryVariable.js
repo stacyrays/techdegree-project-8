@@ -7,9 +7,6 @@ function getQueryVariable(variable) {
       return pair[1];
     }
   }
+  console.log(variable);
   return false;
 }
-
-let basePage = 20;
-
-console.log("is it even reading this?");
