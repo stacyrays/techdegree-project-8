@@ -24,12 +24,12 @@ block content
     p
     
       - var page = 0;
-  
+
       mixin link(href, name)
         //- attributes == {class: "btn"}
-        a(onclick='increment('+ page +')', class!=attributes.class href=(href))= name
+        a(class!=attributes.class href=(href))= name
 
-      +link("/books/" + (page + 2), 'Next')(class="button")
+      +link("/books/" + `${ page + 1}`, 'Next')(class="button")
 
       
       //a(onclick='increment('+ page +')', href="/books/" + page class="button" id="btnPrev" ) Previous  
