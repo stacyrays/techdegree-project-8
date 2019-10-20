@@ -4,8 +4,12 @@ html
     title= title
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Bree+Serif|Open+Sans:400,700')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    
   body
     header
      h1= "Books"
     div.container
       block content
+    script
+      include books/script.js
+    

@@ -54,11 +54,11 @@ router.get(
 
 //Next button clicked
 router.get(
-  "/next",
+  "/:page",
   asyncHandler(async (req, res, next) => {
-    let pageNumber = 1; /*I have this hard coded for now but how do i keep track of the page I'm currently on to make this work for multiple Next button clicks?*/
+    page = req.params.page;
     const limit = 5;
-    const offset = pageNumber * limit;
+    const offset = page * limit;
     const books = await Book.findAll({
       order: [["year", "ASC"]],
       limit: limit,
@@ -74,7 +74,7 @@ router.get(
 
 //Prev button clicked
 router.get(
-  "/prev",
+  "/:page",
   asyncHandler(async (req, res, next) => {
     const books = await Book.findAll({
       order: [["year", "ASC"]],

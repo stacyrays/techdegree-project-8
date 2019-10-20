@@ -22,5 +22,16 @@ block content
             td=book.genre
             td=book.year
     p
-      a(href="/books/prev", class="button") Previous    
-      a(href="/books/next", class="button" style="margin-left: 10px") Next
+    
+      - var page = 0;
+  
+      mixin link(href, name)
+        //- attributes == {class: "btn"}
+        a(onclick='increment('+ page +')', class!=attributes.class href=(href))= name
+
+      +link("/books/" + (page + 2), 'Next')(class="button")
+
+      
+      //a(onclick='increment('+ page +')', href="/books/" + page class="button" id="btnPrev" ) Previous  
+
+      //a(onclick='increment('+ page +')', href="/books/" + page, class="button" id="btnNext" style="margin-left: 10px") Next
