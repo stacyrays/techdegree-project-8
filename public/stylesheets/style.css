@@ -24,7 +24,6 @@ input[type="submit"] {
   font-size: 14px;
   border-radius: 2px;
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
 form a.button,
@@ -40,10 +39,6 @@ input[type="submit"] {
 a.button:hover,
 input[type="submit"]:hover {
   background-color: #01b189;
-}
-
-p {
-  margin: 20px auto;
 }
 
 ul {
@@ -106,4 +101,8 @@ input[type="text"] {
 
 input[type="submit"].search {
   margin-left: 10px;
+}
+
+.pagination {
+  margin-top: 28px;
 }

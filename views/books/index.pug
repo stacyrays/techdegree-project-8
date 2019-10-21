@@ -21,7 +21,7 @@ block content
             td=book.author
             td=book.genre
             td=book.year
-    p
+    p(class="pagination")
       script
         include script.js
       
@@ -31,4 +31,4 @@ block content
 
       //
       
-      a(href="/books/pages/" + page, class="button" id="btnNext" style="margin-left: 10px") Next
+      a(href="/books/pages/" + page, class="button" id="btnNext") Next
