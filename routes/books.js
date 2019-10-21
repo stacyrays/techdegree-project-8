@@ -53,34 +53,17 @@ router.get(
   })
 );
 
-//Next button clicked
+/*Next button clicked - Attempt at Pagination*/
 router.get(
-  "/?page=:number",
+  "/pages/:page",
   asyncHandler(async (req, res, next) => {
-    number = req.params.number;
+    page = req.params.page;
     const limit = 5;
-    const offset = number * limit;
+    const offset = page * limit;
     const books = await Book.findAll({
       order: [["year", "ASC"]],
       limit: limit,
       offset: offset
-    });
-    if (books) {
-      res.render("books/index", { books, title: "Books" });
-    } else {
-      res.render("page-not-found", { book: {}, title: "Page Not Found" });
-    }
-  })
-);
-
-//Prev button clicked
-router.get(
-  "/:page",
-  asyncHandler(async (req, res, next) => {
-    const books = await Book.findAll({
-      order: [["year", "ASC"]],
-      limit: 5,
-      offset: 0
     });
     if (books) {
       res.render("books/index", { books, title: "Books" });
@@ -95,7 +78,6 @@ router.post(
   "/search",
   asyncHandler(async (req, res, next) => {
     let search = req.body.search;
-    //search = "Emma";
     const books = await Book.findAll({
       where: {
         [Op.or]: [
@@ -132,25 +114,6 @@ router.post(
   })
 );
 
-/*//SEARCH for Books byt title
-router.post(
-  "/search",
-  asyncHandler(async (req, res, next) => {
-    let search = req.body.search;
-    //search = "Emma";
-    const books = await Book.findAll({
-      where: {
-        title: `${search}`,
-      }
-    });
-    if (books) {
-      res.render("books/search", { books, title: "Search Results" });
-    } else {
-      res.render("page-not-found", { book: {}, title: "Page Not Found" });
-    }
-  })
-);*/
-
 /* Create a new book form. */
 router.get("/new", (req, res) => {
   res.render("books/new-book", { book: {}, title: "New book" });
@@ -179,20 +142,6 @@ router.post(
     }
   })
 );
-
-/* GET individual book. 
-router.get(
-  "/:id",
-  asyncHandler(async (req, res) => {
-    const book = await Book.findByPk(req.params.id);
-    if (book) {
-      res.render("books/update-book", { book, title: book.title });
-    } else {
-      res.render("error", { book: {}, title: "Error" });
-      //res.sendStatus(404);
-    }
-  })
-);*/
 
 /* GET individual book */
 router.get(

@@ -25,8 +25,10 @@ block content
       script
         include script.js
       
-      - var number = 0;
+      - var page = 0;
 
-      a(onclick='getQueryVariable('+ number +')', href="/books/?page=" + number class="button" id="btnPrev" ) Previous  
+      //a(onclick='getQueryVariable('+ page +')', href="/books/pages/" + page, class="button" id="btnPrev" ) Previous  
 
-      a(onclick='getQueryVariable('+ number +')', href="/books/?page=" + number, class="button" id="btnNext" style="margin-left: 10px") Next
+      //
+      
+      a(href="/books/pages/" + page, class="button" id="btnNext" style="margin-left: 10px") Next
