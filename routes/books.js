@@ -38,7 +38,7 @@ router.get(
 
 /* GET books listing. */
 router.get(
-  "/books",
+  "/books/pages/1",
   asyncHandler(async (req, res, next) => {
     const books = await Book.findAll({
       order: [["year", "ASC"]],
@@ -57,7 +57,8 @@ router.get(
 router.get(
   "/pages/:page",
   asyncHandler(async (req, res, next) => {
-    page = req.params.page;
+    const page = req.params.page;
+    const nextPage = parseInt(page) + 1;
     const limit = 5;
     const offset = page * limit;
     const books = await Book.findAll({
@@ -66,7 +67,7 @@ router.get(
       offset: offset
     });
     if (books) {
-      res.render("books/index", { books, title: "Books" });
+      res.render("books/index", { books, nextPage, title: "Books" });
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
     }

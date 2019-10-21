@@ -22,13 +22,7 @@ block content
             td=book.genre
             td=book.year
     p(class="pagination")
-      script
-        include script.js
-      
-      - var page = 0;
 
-      //a(onclick='getQueryVariable('+ page +')', href="/books/pages/" + page, class="button" id="btnPrev" ) Previous  
+    //- var nextPage = page;
 
-      //
-      
-      a(href="/books/pages/" + page, class="button" id="btnNext") Next
+    a(href="/books/pages/" + nextPage) Next
