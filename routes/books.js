@@ -3,7 +3,6 @@ const router = express.Router();
 const Book = require("../models").Book;
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-//const getQueryVariable = require("../views/books/getQueryVariable");
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb) {
@@ -31,7 +30,6 @@ router.get(
       res.render("books/index", { books, title: "Books" });
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
-      //res.sendStatus(404);
     }
   })
 );
@@ -53,7 +51,7 @@ router.get(
   })
 );
 
-/*Next button clicked - Attempt at Pagination*/
+/*Pagination buttons */
 router.get(
   "/pages/:page",
   asyncHandler(async (req, res, next) => {
@@ -122,7 +120,7 @@ router.get("/new", (req, res) => {
   res.render("books/new-book", { book: {}, title: "New book" });
 });
 
-/* POST create book. */
+/* POST create book */
 router.post(
   "/new",
   asyncHandler(async (req, res) => {
@@ -155,7 +153,7 @@ router.get(
       book = await Book.findByPk(req.params.id);
       res.render("books/update-book", { book, title: book.title });
     } catch (error) {
-      //throw "there's been a mistake";
+      //throw test "there's been a mistake";
       throw res.render("error", { book: {}, title: "Book not found" });
     }
   })
@@ -173,7 +171,6 @@ router.post(
         res.redirect("/");
       } else {
         res.render("page-not-found", { book: {}, title: "Page Not Found" });
-        //res.sendStatus(404);
       }
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
@@ -200,7 +197,6 @@ router.get(
       res.render("books/delete", { book, title: "Delete book" });
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
-      //res.sendStatus(404);
     }
   })
 );
@@ -215,7 +211,6 @@ router.post(
       res.redirect("/books/pages/0");
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
-      //res.sendStatus(404);
     }
   })
 );
