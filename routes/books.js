@@ -57,7 +57,10 @@ router.get(
 router.get(
   "/pages/:page",
   asyncHandler(async (req, res, next) => {
-    const page = req.params.page;
+    let page = await req.params.page;
+    if (page <= 0) {
+      page = page + 1;
+    }
     const nextPage = parseInt(page) + 1;
     const prevPage = parseInt(page) - 1;
     const limit = 5;
