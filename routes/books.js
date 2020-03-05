@@ -55,7 +55,7 @@ router.get(
 router.get(
   "/pages/:page",
   asyncHandler(async (req, res, next) => {
-    let page = await req.params.page;
+    let page = req.params.page;
     page = parseInt(page);
     const nextPage = page >= 0 && page <= 2 ? page + 1 : page;
     const prevPage = page <= 3 && page > 0 ? page - 1 : page;
@@ -208,7 +208,7 @@ router.post(
     const book = await Book.findByPk(req.params.id);
     if (book) {
       await book.destroy();
-      res.redirect("/books/pages/0");
+      res.redirect("/");
     } else {
       res.render("page-not-found", { book: {}, title: "Page Not Found" });
     }
